@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
     "You're not doing anything",
   ];
   const users = [
-    { name: "John", color: "#CFD3CD" },
+    { name: "John", color: "#1FD3CD" },
     { name: "Jane", color: "#642424" },
     { name: "Jack", color: "#7E7B52" },
     { name: "Jill", color: "#20214F" },
@@ -39,17 +39,19 @@ io.on("connection", (socket) => {
     const user = users[Math.floor(Math.random() * users.length)];
     socket.emit("chat-message", { type: "chat-message", body: message, user });
 
-    const min = 300;
+    const min = 500;
     const max = 2000;
     const rand = Math.floor(Math.random() * (max - min + 1) + min);
     setTimeout(sendRandomMessage, rand);
-  }
+  };
+  sendRandomMessage();
 
   socket.on("disconnect", () => {
     console.log("A user disconnected");
   });
 });
 
-server.listen(process.env.PORT || 3000, () => {
-  console.log("Server is running on port 3000");
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
